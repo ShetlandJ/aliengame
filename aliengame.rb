@@ -34,7 +34,6 @@ def death()
 end
 
 $inventory = Inventory.new()
-$alien = Alien.new()
 
 def arrival()
   puts "You're in the main transit lobby of Sevastapol"
@@ -102,7 +101,18 @@ end
 def medical()
   puts "You have arrived in Medical"
 
-  $alien.alien_fight()
+  puts "Suddenly, the Alien appears!"
+  if $inventory.has(ItemTypes::FLAMETHROWER)
+    puts "You successfully repel the alien with your"
+    puts "Flamethrower, and it disappears into the vent."
+
+  elsif rand > 0.5
+    puts "You quickly jump back into the transit car and head back to the transit room"
+    return :transit_room
+  else
+    puts "The alien grabs you, and you are now dead."
+    return :death
+  end
 
   puts "You look around you and see several rooms."
   puts "Which room do you want to enter?"
@@ -116,7 +126,7 @@ def medical()
     puts "You enter the surgeon's office, your feet sticking to"
     puts "the floor."
     return :death
-    
+
   elsif choice == "sc"
     puts "Your proceed into the darkened corridor and the alien grabs you"
     return :death
